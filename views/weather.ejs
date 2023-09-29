@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="items">
+            <span class="place">
+                City: <%= place %>
+            </span>
+            <br>
+            <span class="temp">
+                Temperature:
+                <span id="temperature">
+                    <%= temp %>
+                </span>
+                <button id="toggleButton" class="toggle">
+                    Toggle units
+                </button>
+            </span>
+            <br>
+            <div class="extras">
+                <span class="humidity">
+                    Humidity: <%= humidity %> %
+                </span>
+                <span class="speed">
+                    Wind Speed: <%= windSpeed %> m/s
+                </span>
+
+                <span class="description">
+                    Weather Description: <%= description%>
+                </span>
+                <br>
+                <img class="icon" src=<%=img %> alt="image">
+            </div>
+        </div>
+    </div>
+    <script>
+        // JavaScript code for temperature conversion and toggle
+        let isCelsius = true;
+
+        const temperatureElement = document.getElementById("temperature");
+        const toggleButton = document.getElementById("toggleButton");
+
+        toggleButton.addEventListener("click", toggleUnits);
+
+        function toggleUnits() {
+            isCelsius = !isCelsius;
+            updateTemperatureDisplay();
+        }
+
+        function updateTemperatureDisplay() {
+            const currentTemperature = parseFloat(temperatureElement.textContent);
+
+            if (isCelsius) {
+                const fahrenheitTemperature = ((currentTemperature) * (9 / 5) + 32);
+                temperatureElement.textContent = fahrenheitTemperature.toFixed(2) + "°F";
+            } else {
+                const celsiusTemperature = ((currentTemperature - 32) * 5 / 9);
+                temperatureElement.textContent = celsiusTemperature.toFixed(2) + "°C";
+            }
+        }
+        updateTemperatureDisplay();
+    </script>
+</body>
+
+</html>
